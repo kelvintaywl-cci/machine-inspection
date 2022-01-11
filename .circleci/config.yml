@@ -1,0 +1,42 @@
+version: 2.1
+
+commands:
+  inspect:
+    steps:
+     - run:
+         name: Display system information
+         command: |
+           uname -a
+     - run:
+         name: Check OpenSSH
+         command: |
+           ssh -V
+
+jobs:
+  inspect:
+    parameters:
+      img:
+        description: See https://circleci.com/docs/2.0/configuration-reference/#available-machine-images
+        type: string
+        default: ubuntu-2004:202111-02
+   machine:
+     image: << parameters.img >>
+   steps:
+     - inspect
+
+  inspect-default:
+    machine: true
+    steps:
+      - inspect
+
+workflows:
+  inspect-ssh:
+    jobs:
+      - inspect:
+          matrix:
+            parameters:
+              img:
+                - ubuntu-2004:202111-02
+                - ubuntu-2004:202010-01
+                - ubuntu-1604:202104-01
+      - inspect-default
