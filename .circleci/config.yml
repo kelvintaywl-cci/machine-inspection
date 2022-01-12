@@ -11,6 +11,7 @@ commands:
          name: Check OpenSSH
          command: |
            ssh -V
+     - checkout
 
 jobs:
   inspect:
