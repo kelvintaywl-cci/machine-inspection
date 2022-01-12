@@ -11,7 +11,7 @@ commands:
          name: Check OpenSSH
          command: |
            ssh -V
-           ssh -vvv git@github.com
+           ssh -vvv git@github.com || true
      - checkout
 
 jobs:
