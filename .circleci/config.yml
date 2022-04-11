@@ -15,6 +15,11 @@ commands:
      - checkout
 
 jobs:
+  chrome-check:
+    machine:
+      image: ubuntu-2004:202111-02
+    steps:
+      - run: google-chrome --version
   inspect:
     parameters:
       img:
@@ -32,13 +37,14 @@ jobs:
       - inspect
 
 workflows:
-  inspect-ssh:
+  inspect-chrome:
     jobs:
-      - inspect:
-          matrix:
-            parameters:
-              img:
-                - ubuntu-2004:202111-02
-                - ubuntu-2004:202010-01
-                - ubuntu-1604:202104-01
-      - inspect-default
+#       - inspect:
+#           matrix:
+#             parameters:
+#               img:
+#                 - ubuntu-2004:202111-02
+#                 - ubuntu-2004:202010-01
+#                 - ubuntu-1604:202104-01
+#       - inspect-default
+      - chrome-check
