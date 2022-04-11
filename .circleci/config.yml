@@ -16,8 +16,11 @@ commands:
 
 jobs:
   chrome-check:
+    parameters:
+      img:
+        type: string
     machine:
-      image: ubuntu-2004:202111-02
+      image: << parameters.img >>
     steps:
       - run: google-chrome --version
   inspect:
@@ -47,4 +50,12 @@ workflows:
 #                 - ubuntu-2004:202010-01
 #                 - ubuntu-1604:202104-01
 #       - inspect-default
-      - chrome-check
+      - chrome-check:
+          matrix:
+            parameters:
+              img:
+                - current
+                - 202201-02
+                - 202201-01
+                - 202111-02
+                - 202111-01
